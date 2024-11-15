@@ -42,5 +42,5 @@ Moved `ValidationException` into a separate class in utility.
 - Updated maven configuration with api request dependencies
 - Added config resource file for 30 preset ticker names
 - Modified `InMemoryStockDataAccessObject` to utilize new IStockDataAccess return type
-
+- Implement the `execute_sell` use case, add a new Exception called `InsufficientMarginCallException`
 ### Bug Fixes

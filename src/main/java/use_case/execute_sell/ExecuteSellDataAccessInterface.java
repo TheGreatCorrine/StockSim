@@ -1,9 +1,9 @@
-package use_case.execute_buy;
+package use_case.execute_sell;
 
 import entity.User;
 import utility.exceptions.ValidationException;
 
-public interface ExecuteBuyDataAccessInterface {
+public interface ExecuteSellDataAccessInterface {
     User getUserWithCredential(String credential) throws ValidationException;
 
 }
