@@ -1,6 +1,7 @@
 package view.panels;
 
 import interface_adapter.execute_buy.ExecuteBuyController;
+import interface_adapter.execute_sell.ExecuteSellController;
 import utility.ServiceManager;
 import utility.ViewManager;
 import view.IComponent;
@@ -15,11 +16,8 @@ import java.awt.*;
 import java.util.EnumSet;
 
 public class OrderEntryPanel extends JPanel implements IComponent {
-    private final JLabel titleLabel;
     private final InputComponent tickerField;
     private final InputComponent quantityField;
-    private final JButton buyButton;
-    private final JButton sellButton;
 
     public OrderEntryPanel() {
         setLayout(new BorderLayout());
@@ -29,7 +27,7 @@ public class OrderEntryPanel extends JPanel implements IComponent {
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         // Title Label
-        titleLabel = new JLabel("Order Entry");
+        JLabel titleLabel = new JLabel("Order Entry");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setVerticalAlignment(SwingConstants.CENTER);
         titleLabel.setHorizontalAlignment(SwingConstants.LEFT);
@@ -54,8 +52,8 @@ public class OrderEntryPanel extends JPanel implements IComponent {
 
         // Buttons Panel
         JPanel buttonPanel = new JPanel(new GridLayout(1, 2, 10, 0));
-        buyButton = new ButtonComponent("Buy");
-        sellButton = new ButtonComponent("Sell");
+        JButton buyButton = new ButtonComponent("Buy");
+        JButton sellButton = new ButtonComponent("Sell");
 
         // Buy Button Action
         buyButton.addActionListener(e -> {
@@ -67,6 +65,18 @@ public class OrderEntryPanel extends JPanel implements IComponent {
             // Retrieve the controller and execute the buy action
             ExecuteBuyController controller = ServiceManager.getService(ExecuteBuyController.class);
             controller.execute(ticker, quantity);
+        });
+
+        // Sell Button Action
+        sellButton.addActionListener(e -> {
+            String ticker = tickerField.getText();
+            String quantity = quantityField.getText();
+
+            ViewManager.Instance().broadcastEvent(new DialogEvent("Sell Order", "You want to sell " + quantity + " shares of " + ticker));
+            // Retrieve the controller and execute the sell action
+            ExecuteSellController controller = ServiceManager.getService(ExecuteSellController.class);
+            controller.execute(ticker, quantity);
+
         });
 
         buttonPanel.add(buyButton);
