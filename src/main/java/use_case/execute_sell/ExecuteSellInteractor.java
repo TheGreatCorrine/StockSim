@@ -56,7 +56,7 @@ public class ExecuteSellInteractor implements ExecuteSellInputBoundary {
                 // Add transaction to transaction history
                 // TODO: timestamp synchronization
                 Date timestamp = new Date();
-                Transaction transaction = new Transaction(timestamp, ticker, quantity, currentPrice, "buy");
+                Transaction transaction = new Transaction(timestamp, ticker, quantity, currentPrice, "sell");
                 currentUser.getTransactionHistory().addTransaction(transaction);
                 // Prepare success view
                 outputPresenter.prepareSuccessView(new ExecuteSellOutputData(
