@@ -49,6 +49,10 @@ public class User {
         return portfolio;
     }
 
+    public double getAssetValue() {
+        return balance + portfolio.getTotalValue();
+    }
+
     public TransactionHistory getTransactionHistory() {
         return transactionHistory;
     }

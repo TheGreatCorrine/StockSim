@@ -45,7 +45,7 @@ public class ExecuteSellInteractor implements ExecuteSellInputBoundary {
             // this is the total cost to buy the stock back in the future,
             // but also the total revenue from selling the stock now
             double totalCost = currentPrice * quantity;
-            double totalAsset = currentUser.getBalance() + currentUser.getPortfolio().getTotalValue();
+            double totalAsset = currentUser.getAssetValue();
             // the user can not sell/short sell as many shares as he wants
             if (totalCost <= totalAsset) {
                 // Increase balance
