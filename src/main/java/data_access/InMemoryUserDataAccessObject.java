@@ -2,6 +2,7 @@ package data_access;
 
 import entity.User;
 import use_case.execute_buy.ExecuteBuyDataAccessInterface;
+import use_case.execute_sell.ExecuteSellDataAccessInterface;
 import utility.SessionManager;
 
 import java.util.HashMap;
@@ -9,10 +10,10 @@ import java.util.Map;
 import utility.exceptions.ValidationException;
 
 /**
- * A class that implements the ExecuteBuyDataAccessInterface interface
+ * A class that implements the ExecuteBuyDataAccessInterface and the ExecuteSellDataAccessInterface
  * This class is used to get the user with the given credential
  */
-public class InMemoryUserDataAccessObject implements ExecuteBuyDataAccessInterface {
+public class InMemoryUserDataAccessObject implements ExecuteBuyDataAccessInterface, ExecuteSellDataAccessInterface {
     private Map<String, User> users;
 
     @Override
