@@ -10,23 +10,21 @@ jobs:
   format-check:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # Added write permission
-      packages: read
+      contents: write
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: ${{ github.head_ref || github.ref_name }}  # Checkout proper branch
-          fetch-depth: 0  # Fetch full history
-      
-      - name: Set up JDK
-        uses: actions/setup-java@v3
+          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - uses: actions/setup-java@v3
         with:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
           
-      - name: Run Spotless Check
-        run: mvn spotless:check
+      - run: mvn spotless:check
         
       - name: Apply Spotless Format
         if: failure()
@@ -36,4 +34,4 @@ jobs:
           mvn spotless:apply
           git add .
           git commit -m "chore: apply spotless formatting"
-          git push origin HEAD:${GITHUB_REF#refs/heads/}
+          git push
