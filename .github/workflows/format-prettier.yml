@@ -1,4 +1,5 @@
 name: Format with Prettier
+
 on:
   push:
     branches: ['main']
@@ -19,6 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+
     steps:
       - uses: actions/checkout@v3
         with:
@@ -46,5 +48,5 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add "*.md" "*.yml" "*.yaml"
-          git commit -m "chore: format files with Prettier [skip ci]"
+          git commit -m "chore: format files with Prettier"
           git push
