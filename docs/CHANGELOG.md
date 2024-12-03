@@ -83,6 +83,7 @@
   `StockMarket` that self-adjust based on API rate limit
 - Changed API to Finnhub API
 - Implemented integration of `StockMarket` and `StockDataAccessObject`
+- Added accessibility report in doc
 
 ### Internal Changes
 
