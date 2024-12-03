@@ -1,7 +1,8 @@
 1. Introduce the project
 
 - Project Domain
-- Specification - Google Doc Overview, print them out and introduce some terminologies
+- Specification - Google Doc Overview, print them out and introduce some
+  terminologies
 - UML
 - User stories
 
