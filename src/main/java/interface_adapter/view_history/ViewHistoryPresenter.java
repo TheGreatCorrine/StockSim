@@ -8,10 +8,7 @@ import view.view_events.DialogEvent;
 import view.view_events.SwitchPanelEvent;
 import view.view_events.UpdateTransactionHistoryEvent;
 
-
-/**
- * Presenter for the ViewHistory Use Case
- */
+/** Presenter for the ViewHistory Use Case */
 public class ViewHistoryPresenter implements ViewHistoryOutputBoundary {
 
     public ViewHistoryPresenter() {
