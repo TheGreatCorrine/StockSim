@@ -5,33 +5,36 @@ on:
   pull_request:
     branches: ['main']
   workflow_dispatch:
-
 jobs:
   format-check:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      packages: read
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          token: ${{ secrets.GITHUB_TOKEN }}
-          
-      - uses: actions/setup-java@v3
+          ref: ${{ github.head_ref || github.ref_name }}
+          fetch-depth: 0
+      - name: Set up JDK
+        uses: actions/setup-java@v3
         with:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
-          
-      - run: mvn spotless:check
-        
+      - name: Run Spotless Check
+        run: mvn spotless:check
       - name: Apply Spotless Format
         if: failure()
         run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           mvn spotless:apply
-          git add .
-          git commit -m "chore: apply spotless formatting"
-          git push
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git config --global user.name 'github-actions[bot]'
+            git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+            git add .
+            git commit -m "chore: apply spotless formatting [skip ci]"
+            git push
+          else
+            echo "No changes to commit after running spotless:apply"
+          fi
