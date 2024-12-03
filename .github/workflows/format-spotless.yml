@@ -1,4 +1,5 @@
 name: Format with Spotless
+
 on:
   push:
     branches: ['main']
@@ -8,17 +9,13 @@ on:
 
 jobs:
   format-check:
-    # Skip this workflow if the commit was made by github-actions bot
-    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     permissions:
-      # Need write permission to push formatting changes
-      contents: write
+      contents: read
       packages: read
+
     steps:
       - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.head_ref }}
 
       - name: Set up JDK
         uses: actions/setup-java@v3
@@ -34,14 +31,8 @@ jobs:
         if: failure()
         run: |
           mvn spotless:apply
-
-          # Check if there are actually any changes to commit
-          if [[ -n "$(git status --porcelain)" ]]; then
-            git config --global user.name 'github-actions[bot]'
-            git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-            git add .
-            git commit -m "chore: apply spotless formatting [skip ci]"
-            git push
-          else
-            echo "No changes to commit after running spotless:apply"
-          fi
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add .
+          git commit -m "chore: apply spotless formatting"
+          git push
