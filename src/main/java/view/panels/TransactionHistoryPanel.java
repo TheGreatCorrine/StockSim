@@ -3,13 +3,12 @@ package view.panels;
 import entity.Transaction;
 import entity.TransactionHistory;
 import java.awt.*;
-import java.util.List;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-
 import view.FontManager;
 import view.IComponent;
 import view.ViewManager;
@@ -18,7 +17,6 @@ import view.components.TableComponent;
 import view.view_events.SwitchPanelEvent;
 import view.view_events.UpdateTransactionHistoryEvent;
 import view.view_events.ViewEvent;
-
 
 public class TransactionHistoryPanel extends JPanel implements IComponent {
     private static final int PADDING = 20;
