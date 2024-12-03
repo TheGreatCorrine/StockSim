@@ -33,16 +33,14 @@ jobs:
       - name: Format files
         run: prettier --write "**/*.{md,yml}"
 
-      - name: Check for changes
-        id: git-check
-        run: |
-          git diff --exit-code || echo "changes=true" >> $GITHUB_OUTPUT
-
       - name: Commit changes
-        if: steps.git-check.outputs.changes == 'true'
         run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add "$(git ls-files '*.md' '*.yml')"
-          git commit -m "chore: format files with Prettier [skip ci]"
-          git push
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git config --global user.name 'github-actions[bot]'
+            git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+            git add -A
+            git commit -m "chore: format files with Prettier [skip ci]"
+            git push
+          else
+            echo "No changes to commit"
+          fi
