@@ -1,5 +1,4 @@
 name: Format with Spotless
-
 on:
   push:
     branches: ['main']
@@ -11,28 +10,30 @@ jobs:
   format-check:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write  # Added write permission
       packages: read
-
     steps:
       - uses: actions/checkout@v3
-
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}  # Checkout proper branch
+          fetch-depth: 0  # Fetch full history
+      
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
-
+          
       - name: Run Spotless Check
         run: mvn spotless:check
-
+        
       - name: Apply Spotless Format
         if: failure()
         run: |
-          mvn spotless:apply
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          mvn spotless:apply
           git add .
           git commit -m "chore: apply spotless formatting"
-          git push
+          git push origin HEAD:${GITHUB_REF#refs/heads/}
