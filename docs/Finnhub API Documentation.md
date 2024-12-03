@@ -2,7 +2,9 @@
 
 ## Introduction
 
-We utilize the Finnhub API for retrieving stock prices, company profiles, and other market data. Detailed documentation is available [here](https://finnhub.io/docs/api).
+We utilize the Finnhub API for retrieving stock prices, company profiles, and
+other market data. Detailed documentation is available
+[here](https://finnhub.io/docs/api).
 
 ### Response Data Type
 

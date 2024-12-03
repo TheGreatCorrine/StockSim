@@ -1,9 +1,9 @@
 ---
 name: TODO Template
 about: Set up tasks for this project and assign to members.
-title: "[TODO]"
+title: '[TODO]'
 labels: task
-assignees: ""
+assignees: ''
 ---
 
 # Due date (eg. 2024.01.01)

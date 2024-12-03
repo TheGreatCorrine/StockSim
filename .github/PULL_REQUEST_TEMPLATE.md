@@ -29,7 +29,10 @@
 ## Reviewer Checklist
 
 - [ ] I have verified that all unit tests pass successfully.
-- [ ] I have ensured that documentation, including `README.md` and `CHANGELOG.md`, is updated.
-- [ ] I have checked that the code follows dependency rules specified by Clean Architecture.
+- [ ] I have ensured that documentation, including `README.md` and
+      `CHANGELOG.md`, is updated.
+- [ ] I have checked that the code follows dependency rules specified by Clean
+      Architecture.
 - [ ] I have confirmed that comments are clear, concise, and current.
-- [ ] I have verified the code is free of hardcoded values, unnecessary complexity, or unused code.
+- [ ] I have verified the code is free of hardcoded values, unnecessary
+      complexity, or unused code.
