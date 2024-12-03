@@ -3,18 +3,16 @@ package view.panels;
 import entity.Portfolio;
 import entity.UserStock;
 import java.awt.*;
-import javax.swing.*;
 import java.util.List;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
-
 import view.FontManager;
 import view.IComponent;
 import view.ViewManager;
 import view.components.TableComponent;
 import view.view_events.UpdateAssetEvent;
 import view.view_events.ViewEvent;
-
 
 public class PortfolioPanel extends JPanel implements IComponent {
     private static final String TITLE = "Portfolio Overview";

@@ -5,37 +5,30 @@ on:
   pull_request:
     branches: ['main']
   workflow_dispatch:
-
 jobs:
   format-check:
-    # Skip this workflow if the commit was made by github-actions bot
     if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     permissions:
-      # Need write permission to push formatting changes
       contents: write
       packages: read
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: ${{ github.head_ref }}
-
+          ref: ${{ github.head_ref || github.ref_name }}
+          fetch-depth: 0
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
-
       - name: Run Spotless Check
         run: mvn spotless:check
-
       - name: Apply Spotless Format
         if: failure()
         run: |
           mvn spotless:apply
-
-          # Check if there are actually any changes to commit
           if [[ -n "$(git status --porcelain)" ]]; then
             git config --global user.name 'github-actions[bot]'
             git config --global user.email 'github-actions[bot]@users.noreply.github.com'
